@@ -1,0 +1,27 @@
+resource_registry:
+  OS::TripleO::ControllerExtraConfigPre: /usr/share/openstack-tripleo-heat-templates/puppet/extraconfig/pre_deploy/controller/neutron-ml2-bigswitch.yaml
+  OS::TripleO::ComputeExtraConfigPre: /usr/share/openstack-tripleo-heat-templates/puppet/extraconfig/pre_deploy/compute/neutron-bigswitch.yaml
+
+parameters:
+  controllerExtraConfig:
+    neutron::agents::bigswitch::lldp_enabled: true
+    neutron::agents::bigswitch::agent_enabled: false
+    neutron::agents::l3::enabled: false
+    neutron::agents::dhcp::enable_isolated_metadata: true
+    neutron::agents::dhcp::enable_metadata_network: true
+  NeutronMechanismDrivers: openvswitch,bsn_ml2
+  KeystoneNotificationDriver: messaging
+
+  NovaComputeExtraConfig:
+    neutron::agents::ml2::ovs::enabled: false
+    neutron::agents::bigswitch::lldp_enabled: false
+    neutron::agents::bigswitch::agent_enabled: true
+
+parameter_defaults:
+  NeutronBigswitchRestproxyServers: 10.5.2.21:8000
+  NeutronBigswitchRestproxyServerAuth: admin:bsn
+  NeutronBigswitchRestproxyAutoSyncOnFailure: True
+  NeutronBigswitchRestproxyConsistencyInterval: 10
+  NeutronBigswitchRestproxyNeutronId: RHOSP8
+  NeutronBigswitchRestproxyServerSsl: True
+  NeutronBigswitchRestproxySslCertDirectory: /var/lib/neutron
