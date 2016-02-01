@@ -29,7 +29,10 @@ source_config
 
 case "$TYPE" in
         IVSIntPort)
-                ivs-ctl add-internal-port "$DEVICE"
+                intf=$(ivs-ctl list-ports | grep "$DEVICE")
+                if [ -z $intf ]; then
+                    ivs-ctl add-internal-port "$DEVICE"
+                fi
                 ifconfig "$DEVICE" "$IPADDR" netmask "$NETMASK"
                 ;;
         *)
