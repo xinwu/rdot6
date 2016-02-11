@@ -32,10 +32,11 @@ case "$TYPE" in
                 state=$(systemctl status ivs | grep running)
                 if [ -z "$state" ]; then
                     systemctl restart ivs
-                fi
-                ports=$(ivs-ctl show | grep -E "^\s+[0-9]" | grep -v "internal")
-                if [ -z "$ports" ]; then
-                    systemctl restart ivs
+                else
+                    ports=$(ivs-ctl show | grep -E "^\s+[0-9]" | grep -v "internal")
+                    if [ -z "$ports" ]; then
+                        systemctl restart ivs
+                    fi
                 fi
                 intf=$(ivs-ctl list-ports | grep "$DEVICE")
                 if [ -z $intf ]; then
