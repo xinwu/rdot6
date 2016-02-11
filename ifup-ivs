@@ -29,6 +29,10 @@ source_config
 
 case "$TYPE" in
         IVSIntPort)
+                state=$(systemctl status ivs | grep running)
+                if [ -z "$state" ]; then
+                    systemctl restart ivs
+                fi
                 intf=$(ivs-ctl list-ports | grep "$DEVICE")
                 if [ -z $intf ]; then
                     ivs-ctl add-internal-port "$DEVICE"
