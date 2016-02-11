@@ -33,6 +33,10 @@ case "$TYPE" in
                 if [ -z "$state" ]; then
                     systemctl restart ivs
                 fi
+                ports=$(ivs-ctl show | grep -E "^\s+[0-9]" | grep -v "internal")
+                if [ -z "$ports" ]; then
+                    systemctl restart ivs
+                fi
                 intf=$(ivs-ctl list-ports | grep "$DEVICE")
                 if [ -z $intf ]; then
                     ivs-ctl add-internal-port "$DEVICE"
