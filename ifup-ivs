@@ -36,8 +36,11 @@ case "$TYPE" in
                 ifconfig "$DEVICE" "$IPADDR" netmask "$NETMASK"
                 ;;
         *)
-                echo $"Invalid IVS interface type $TYPE"
-                exit 1
+                intf=$(ivs-ctl list-ports | grep "$DEVICE")
+                if [ -z $intf ]; then
+                    /sbin/ip link set dev ${DEVICE} up
+                    ivs-ctl add-port "$DEVICE"
+                fi
                 ;;
 esac
 
