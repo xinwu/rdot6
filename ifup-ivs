@@ -40,6 +40,7 @@ case "$TYPE" in
                 if [ -z $intf ]; then
                     /sbin/ip link set dev ${DEVICE} up
                     ivs-ctl add-port "$DEVICE"
+                    systemctl restart ivs
                 fi
                 ;;
 esac
