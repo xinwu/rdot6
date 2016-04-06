@@ -9,7 +9,6 @@ parameters:
     neutron::agents::l3::enabled: false
     neutron::agents::dhcp::enable_isolated_metadata: true
     neutron::agents::dhcp::enable_metadata_network: true
-  NeutronEnableL3Agent: false
   NeutronMechanismDrivers: openvswitch,bsn_ml2
   KeystoneNotificationDriver: messaging
 
@@ -26,3 +25,4 @@ parameter_defaults:
   NeutronBigswitchRestproxyNeutronId: RHOSP8
   NeutronBigswitchRestproxyServerSsl: True
   NeutronBigswitchRestproxySslCertDirectory: /var/lib/neutron
+  NeutronEnableL3Agent: false
