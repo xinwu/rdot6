@@ -11,6 +11,7 @@ parameters:
     neutron::agents::dhcp::enable_metadata_network: true
     neutron::server::l3_ha: false
   NeutronMechanismDrivers: openvswitch,bsn_ml2
+  NeutronServicePlugins: bsn_l3,bsn_service_plugin
   KeystoneNotificationDriver: messaging
 
   NovaComputeExtraConfig:
